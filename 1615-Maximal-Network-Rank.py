@@ -1,19 +1,20 @@
 class Solution:
     def maximalNetworkRank(self, n: int, roads: List[List[int]]) -> int:
-        adj = defaultdict(list)
-        res = 0
+        road_count = [0] * n
+        direct_road = set()
+        
         for u, v in roads:
-            adj[u].append(v)
-            adj[v].append(u)
-        def helper(i, j):
-            redunt = 0
-            total = len(adj[i]) + len(adj[j])
-            if j in adj[i]:
-                redunt += 1
-            return total - redunt
-
+            road_count[u] += 1
+            road_count[v] += 1
+            direct_road.add((u, v))
+            direct_road.add((v, u))
+        
+        max_rank = 0
         for i in range(n - 1):
             for j in range(i + 1, n):
-                res = max(res, helper(i, j))
+                rank = road_count[i] + road_count[j]
+                if (i, j) in direct_road:
+                    rank -= 1
+                max_rank = max(max_rank, rank)
         
-        return res
+        return max_rank
