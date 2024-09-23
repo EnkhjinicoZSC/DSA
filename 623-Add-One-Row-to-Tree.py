@@ -13,10 +13,8 @@ class Solution:
             node = TreeNode(val)
             node.left = root
             return node
-        if root.left or root.right:
-            count += 1
 
-        while q and count < depth:
+        while q and count < depth - 1:
             size = len(q)
             for _ in range(size):
                 node = q.popleft()
