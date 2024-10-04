@@ -12,9 +12,6 @@ class Solution:
                     dp[idx] = True # opening
                     dp[i] = True # closing
         
-
-
-        print(dp)
         l = 0
         for r in range(len(dp)):
             if dp[r]:
